@@ -1,0 +1,53 @@
+from GTADBOperator import GTADBOperator
+from dataServer import dataServer
+from common.redisReader import getRedisReader
+from GlobleConf import Sys
+import datetime
+class updater(object):
+    def __init__(self):
+        #context = getRedisReader('10.4.37.206').getValues([Sys.WindHost, Sys.WindPort])
+        #self.__windHost, strPort = (context[Sys.WindHost], context[Sys.WindPort])
+        self.__windHost, strPort = ('10.2.53.43', '51423')
+        self.__windPort = int(strPort)
+        self.__gta = GTADBOperator()
+    def start(self):
+        self.__w = dataServer(self.__windHost)
+        self.__w.start(self.__windPort)
+        self.__d = dataServer()
+        self.__d.start()
+        self.__gta.start()
+
+    def update(self):
+        self.updateSTK_CALENDARD()
+        self.updatePUB_MAINCONTRACT()
+        self.updateFUT_QUOTATIONHISTORY()
+    def stop(self):
+        self.__w.stop()
+        self.__d.stop()
+        self.__gta.stop()
+
+    def updateSTK_CALENDARD(self):
+        gtaLast = self.__d.tdaysoffset(0).Data[0][0].date()
+        windList = [ i.date() for i in self.__w.tdays(self.__w.tdaysoffset(-10).Data[0][0]).Data[0]]
+
+
+        if gtaLast != windList[-1]:
+            if gtaLast in windList:
+                updateList = [(date, 'SSE', 'Y', '-', '0',  datetime.datetime.now(), datetime.datetime.now(), 0) for date in windList[windList.index(gtaLast) + 1]]
+                print updateList
+                #self.__gta.insertValues('GTA_QIA_QDB', 'STK_CALENDARD', updateList)
+            else:
+                raise Exception('gtaLast not in windList')
+
+
+    def updatePUB_MAINCONTRACT(self):
+
+        pass
+    def updateFUT_QUOTATIONHISTORY(self):
+        pass
+
+if __name__ == '__main__':
+    u = updater()
+    u.start()
+    u.update()
+    u.stop()
