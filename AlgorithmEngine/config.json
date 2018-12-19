@@ -1,0 +1,47 @@
+{
+  "redis_host": "redis",
+  "redis_port": 6379,
+  "tick_dao": {
+    "db_key": "LAST_TICK_DATA",
+    "redis_db": 11
+  },
+  "market_data": {
+    "mk_data_key": "MKDATA.*",
+    "publish_key": "minData"
+  },
+  "redis_logging": {
+    "log_path": "/root/logs",
+    "redis_db": 14
+  },
+  "config_dao": {
+    "redis_db": 15
+  },
+  "mysql_server": {
+    "user": "root",
+    "password": "123123",
+    "host": "mysql",
+    "port": 3306
+  },
+  "flask_web": {
+    "port": 5000
+  },
+  "error_sender": {
+    "email": {
+      "enable": true,
+      "allReceiver": ["xingwang.zhang"],
+      "xingwang.zhang": "xingwang.zhang@renren-inc.com",
+      "sender":{
+        "smtpserver":"smtp.qq.com",
+        "email":"xingwang.zhang@foxmail.com",
+        "user":"515020386",
+        "password":"kibcplzekpvvbifj"
+      }
+    },
+    "telephone": {
+      "enable": false,
+      "allReceiver": ["xingwang.zhang"],
+      "xingwang.zhang": "13552839840"
+    }
+  },
+  "mk_configs": "/project/MarketDataServer/CTPClient/donghai.conf"
+}

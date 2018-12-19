@@ -1,0 +1,37 @@
+{
+  "monitor": true,
+  "bridge": true,
+  "market": [
+    {
+      "name": "Main",
+      "host": "10.4.27.181",
+      "port": 6379,
+      "item": [
+        {
+          "key": "CTP.MKDATA.*",
+          "period": 10
+        },
+        {
+          "translate": 1,
+          "key": "CTP.minData.*",
+          "period": 10
+        }
+      ]
+    },
+    {
+      "name": "Back",
+      "host": "10.4.37.206",
+      "port": 6379,
+      "item": [
+        {
+          "key": "CTP.MKDATA.*",
+          "period": 10
+        },
+        {
+          "key": "CTP.minData.*",
+          "period": 10
+        }
+      ]
+    }
+  ]
+}

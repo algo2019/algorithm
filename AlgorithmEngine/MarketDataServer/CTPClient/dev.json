@@ -1,0 +1,10 @@
+{
+  "market_host": "tcp://180.168.146.187:10031",
+  "trade_host": "tcp://180.168.146.187:10030",
+  "broker_id": "9999",
+  "investor_id": "066285",
+  "investor_password": "3735261",
+  "redis_host": "127.0.0.1",
+  "redis_port": 6379,
+  "publish_key": "MKDATA"
+}

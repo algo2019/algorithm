@@ -1,0 +1,38 @@
+{
+  "monitor": true,
+  "bridge": false,
+  "market": [
+    {
+      "name": "Main",
+      "host": "10.4.27.181",
+      "port": 6379,
+      "item": [
+        {
+          "translate": 1,
+          "key": "tttt.*",
+          "period": 4
+        },
+        {
+          "key": "mmmm.*",
+          "period": 4
+        }
+      ]
+    },
+    {
+      "name": "Back",
+      "host": "10.4.37.206",
+      "port": 6379,
+      "item": [
+        {
+          "translate": 1,
+          "key": "tttt.*",
+          "period": 4
+        },
+        {
+          "key": "mmmm.*",
+          "period": 4
+        }
+      ]
+    }
+  ]
+}

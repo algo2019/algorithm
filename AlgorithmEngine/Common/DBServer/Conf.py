@@ -1,0 +1,9 @@
+DB_PATH = ':memory:'
+PS_KEY = 'DB_SERVER'
+LOG_NAME = 'MAIN.DBServer'
+DB_MODULE = 'DB_SYS'
+REDIS_HOST = '10.4.37.206'
+REDIS_PORT = 6379
+
+TABLE_CALL_CMD = 'table_call'
+TABLE_REGISTER_CMD = 'table_register'

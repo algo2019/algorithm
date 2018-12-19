@@ -1,0 +1,8 @@
+
+ACCEPTED = '3'
+SUBMITTED = 'a'
+FILLED = '0'
+CANCELED = '5'
+NOT_IN_LINE = '2'
+PART_FILLED_NOT_IN_LINE = '4'
+CANCELED_SET = {'2', '4', '5', '6'}
