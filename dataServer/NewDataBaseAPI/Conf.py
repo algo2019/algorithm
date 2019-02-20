@@ -7,6 +7,11 @@ class DB_TYPE(object):
     SQLITE = 'sqlite'
 
 
+class MinDataService(object):
+    Host = 'localhost'
+    Port = 38000
+
+
 def get_gta_db(type_=DB_TYPE.GTA, clear=False):
     lock = getattr(get_gta_db, 'lock')[type_]
     lock.acquire()

@@ -133,10 +133,10 @@ def testTdays(w):
 def test(db1):
     conf = {
         'dataName': 'data',
-        'code': 'al1707',
+        'code': 'ag1901',
         'fields': 'open,high,low,close,volume',
-        'start': '20170509 16:00:00',  # 可选，默认为当前日期
-        'end': '20170510 16:00:00',  # 可选，默认为当前日期
+        'start': '20180923 16:00:00',  # 可选，默认为当前日期
+        'end': '20181010 16:00:00',  # 可选，默认为当前日期
         'period': '1m',  # 可选，默认为 1d，支持 1d 1m 5m 10m 15m 30m 60m
         # 'includeend': False,
     }
@@ -149,23 +149,19 @@ def test(db1):
 if __name__ == '__main__':
     # w = dataBaseClient.Client()
     # w = dataServer.dataServer('127.0.0.1')
-    # w = NewDataBaseClient()
-    from dataServer import Conf
+    w = NewDataBaseClient()
 
-    Conf.DB_PATH = None
-    Conf.CACHE = False
-
-    w = dataServer.dataServer('10.4.37.198')
+    # w = dataServer.dataServer('10.4.37.198')
     # w.port = 60000
     w.start()
     try:
-        testDomInfo(w)
+        # testDomInfo(w)
         # testFuts(w)
         # testWsd(w)
         # testWsi(w)
         # testAll(w)
         # testTdays(w)
-        # test(w)
+        test(w)
         # print w.tdaysoffset(1).Data[0][0]
     finally:
         try:

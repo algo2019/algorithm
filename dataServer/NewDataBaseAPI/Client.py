@@ -2,6 +2,7 @@ import abc
 
 import datetime
 from decimal import Decimal
+from xmlrpclib import ServerProxy
 
 import tools
 import Conf
@@ -42,6 +43,11 @@ class TimeClientPreProcessingClient(ControlClient):
             raise Exception('TimeClientPreProcessingClient get client of {} error'.format(conf.get('dataName')))
 
     def before_action(self, conf):
+        if conf['dataName'] == 'data':
+            if conf['period'] in ('01', '05', '10', '15', '30', '1m', '5m', '10m', '15m', '30m'):
+                conf['dataName'] = 'minData'
+            elif conf['period'] == '1d':
+                conf['dataName'] = 'dayData'
         if conf.get('tradingday'):
             ts_conf = {'dataName': 'tdaysoffset', 'offset': 1, 'datetime': conf['start']}
             start_date = self.get_client(ts_conf).get_data(ts_conf).date()
@@ -132,7 +138,7 @@ class TradeRecordClient(BaseClient):
         start = self._dao.tdaysoffset(before, start)
         end = self._dao.tdaysoffset(0 - after, end)
         symbol_list = symbol.split(',')
-        return self._date_to_datetime([[s + '0', start, end] for s in symbol_list], [1,2])
+        return self._date_to_datetime([[s + '0', start, end] for s in symbol_list], [1, 2])
 
     def get_data(self, conf):
         if conf['dataName'] == 'tdaysoffset':
@@ -141,7 +147,7 @@ class TradeRecordClient(BaseClient):
             return self._dao.tdays(conf['start'], conf['end'])
         elif conf['dataName'] == 'domInfo':
             return self.main_contract(conf['commodity'], conf['start'], conf['end'], conf['beforday'], conf['afterday'])
-        elif conf['dataName'] == 'data' and conf['period'] == '1d':
+        elif conf['dataName'] == 'dayData':
             rt = self._dao.day(conf['code'], conf['start'], conf.get('end'), conf.get('fields'))
             rt = self._date_to_datetime(rt, [0])
             for l in rt:
@@ -150,5 +156,11 @@ class TradeRecordClient(BaseClient):
                         l[i] = float(l[i])
             return rt
 
-        else:
-            raise NotImplementedError
+
+class MinDataAdapterClient(BaseClient):
+    def __init__(self):
+        self.proxy = ServerProxy("http://{}:{}/".format(Conf.MinDataService.Host, Conf.MinDataService.Port))
+
+    def get_data(self, conf):
+        if conf['dataName'] == 'minData':
+            return self.proxy.wmm(conf)

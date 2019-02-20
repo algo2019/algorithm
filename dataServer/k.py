@@ -19,7 +19,7 @@ class GTADataBase(object):
     def restart(self):
         self.stop()
         time.sleep(10)
-        return w.start()
+        return self.__w.start()
 
     def stop(self):
         self.__w.stop()
