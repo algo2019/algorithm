@@ -43,8 +43,9 @@ class TimeClientPreProcessingClient(ControlClient):
             raise Exception('TimeClientPreProcessingClient get client of {} error'.format(conf.get('dataName')))
 
     def before_action(self, conf):
-        if type(conf['fields']) == list:
-            conf['fields'] = ','.join(conf['fields'])
+        if conf.get('fields') is not None:
+            if type(conf['fields']) == list:
+                conf['fields'] = ','.join(conf['fields'])
         if conf['dataName'] == 'data':
             if conf['period'] in ('01', '05', '10', '15', '30', '1m', '5m', '10m', '15m', '30m'):
                 conf['dataName'] = 'minData'
