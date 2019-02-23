@@ -15,13 +15,6 @@
   pip install -r requirements-maybe.txt
   ```
 
-- Start dataService
-
-  ```
-  cd dataServer/
-  python net_GTADataBase.py 
-  ```
-
 - Start testStrategy.py
 
   ```
