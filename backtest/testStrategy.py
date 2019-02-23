@@ -119,9 +119,9 @@ args = dict(
     experiment_key = 'tutorial',            # The log identifier
     strategy_class = SampleStrategy,        # Policy class for backtesting
     param = {'ma_short': 5, 'ma_long':40},  # Strategy parameters
-    start = datetime(2010, 2, 1),           # The start time
-    end = datetime(2011, 12, 31),             # The end of time
-    frequency = Frequency.DAY,      # The frequency of bar input, this is 10 minutes
+    start = datetime(2018, 9, 1),           # The start time
+    end = datetime(2018, 9, 21),             # The end of time
+    frequency = Frequency.MINUTE,      # The frequency of bar input, this is 10 minutes
     before_days = 0,                        # How many days before becoming the main contract to start collecting data
     # instrument = 'SR',                     # Varieties of commodities
 )

@@ -137,19 +137,15 @@ class TradeRecordClient(BaseClient):
             _list[i] = l
         return _list
 
-    def main_contract(self, symbol, start, end, before, after):
-        start = self._dao.tdaysoffset(before, start)
-        end = self._dao.tdaysoffset(0 - after, end)
-        symbol_list = symbol.split(',')
-        return self._date_to_datetime([[s + '0', start, end] for s in symbol_list], [1, 2])
-
     def get_data(self, conf):
         if conf['dataName'] == 'tdaysoffset':
             return self._dao.tdaysoffset(conf['offset'], conf.get('datetime'))
         elif conf['dataName'] == 'tdays':
             return self._dao.tdays(conf['start'], conf['end'])
         elif conf['dataName'] == 'domInfo':
-            return self.main_contract(conf['commodity'], conf['start'], conf['end'], conf['beforday'], conf['afterday'])
+            return [[x[0], tools.format_to_datetime(x[2]), tools.format_to_datetime(x[3])] for x in self._dao.main_contract(
+                conf['commodity'], conf['start'], conf['end'], conf['beforday'], conf['afterday']
+            )]
         elif conf['dataName'] == 'dayData':
             rt = self._dao.day(conf['code'], conf['start'], conf.get('end'), conf.get('fields'))
             rt = self._date_to_datetime(rt, [0])
@@ -166,4 +162,7 @@ class MinDataAdapterClient(BaseClient):
 
     def get_data(self, conf):
         if conf['dataName'] == 'minData':
-            return self.proxy.wmm(conf)
+            res = self.proxy.wmm(conf)
+            for line in res:
+                line[0] = tools.format_to_datetime(line[0])
+            return res

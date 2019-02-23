@@ -3,7 +3,7 @@ import datetime
 
 
 def format_to_datetime(dt, time=True, date=True, ms=True):
-    ds = re.match(r'(\d{4})[\:\-\/]?(\d{2})[\:\-\/]?(\d{2})\s?(?:(\d{2}):?(\d{2}):?(\d{2})\.?(\d+)?)?', str(dt))
+    ds = re.match(r'(\d{4})[\:\-\/]?(\d{2})[\:\-\/]?(\d{2})[\sT]?(?:(\d{2}):?(\d{2}):?(\d{2})\.?(\d+)?)?', str(dt))
     if ds is not None:
         if not time:
             return datetime.date(*map(int, ds.groups(default=0)[:3]))
