@@ -1,5 +1,5 @@
 tornado==4.5.3
-numpy==1.15.4
+numpy==1.22.0
 python_jrpc==1.1.5
 interval==1.0.0
 Flask==1.0.2
